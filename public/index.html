@@ -67,6 +67,18 @@
         }
       });
 
+      var MadlibForm = React.createClass({
+        render: function() {
+          return (
+            <form className="commentForm" onSubmit={this.handleSubmit}>
+              <input type="textarea" ref="madlibText" />
+              <input type="number" placeholder="Number of inputs" ref="inputsNum" />
+              <input type="submit" value="Post" />
+            </form>
+          );
+        }
+      });
+
       // Parent component for madlib - the 'holder', basically
       var MadlibBox = React.createClass({
         getInitialState: function() {
@@ -80,6 +92,8 @@
             <div className="madlibBox">
               <h1>Madlib</h1>
               <Madlib data={this.state.data}/>
+              <h2>Submit your madlib!</h2>
+              <MadlibForm />
             </div>
           );
         }
