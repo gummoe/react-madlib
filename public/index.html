@@ -1,0 +1,50 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Madlib Maker</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+  </head>
+  <body>
+    <div id="content"></div>
+    <script type="text/jsx">
+      var Madlib = React.createClass({
+        render: function() {
+          return (
+            <div className="madlib">
+              {this.props.data}
+            </div>
+          );
+        }
+      });
+
+      var MadlibBox = React.createClass({
+        getInitialState: function() {
+          return {data: []};
+        },
+        componentDidMount: function() {
+          this.setState({data: data});
+        },
+
+        render: function() {
+          return (
+            <div className="madlibBox">
+              <h1>Madlib</h1>
+              <Madlib data={this.state.data}/>
+            </div>
+          );
+        }
+      });
+
+      var data =
+        "Now this is a story all about how My life got flipped turned upside down And I'd like to take a minute just sit right there I'll tell you how I became the prince of a town called Bel-Air In west Philadelphia born and raised On the playground is where I spent most of my days Chillin' out maxin' relaxin' all cool And all shootin' some b-ball outside of the school When a couple of guys who were up to no good Started makin' trouble in my neighborhood I got in one little fight and my mom got scared And said you're movin' with your auntie and uncle in Bel-Air";
+
+      React.render(
+        <MadlibBox data={data}/>,
+        document.getElementById('content')
+      );
+    </script>
+  </body>
+</html>
