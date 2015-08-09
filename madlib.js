@@ -9,12 +9,12 @@ var Madlib = React.createClass({
   }
 });
 
-// MadlibComponent component is a form for words that have been removed
+// MadlibBlank component is a form for words that have been removed
 // from the original madlib text
-var MadlibComponent = React.createClass({
+var MadlibBlank = React.createClass({
   render: function() {
     return (
-        <input type="text" />
+        <input type="text" className="madlib-blank"/>
     );
   }
 });
@@ -39,11 +39,16 @@ var MadlibForm = React.createClass({
   },
   render: function() {
     return (
-      <form className="commentForm" onSubmit={this.handleSubmit}>
-        <input type="textarea" ref="madlibText" /><br />
-        <input type="number" min="1" placeholder="Number of blanks" ref="numBlanks" /><br />
-        <input type="submit" value="Submit" />
-      </form>
+      <div className="madlibForm" id="madlib-form-container">
+        <h2>Submit your madlib</h2>
+        <p>Enter text and the number of blanks that you would like into the form below.
+        <strong> Note:</strong> The number of blanks must be greater than the number of words</p>
+        <form id="madlib-form" onSubmit={this.handleSubmit}>
+          <textarea className="form-textarea" ref="madlibText" /><br />
+          Number of blanks: <input type="number" min="1" ref="numBlanks" /><br />
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
     );
   }
 });
@@ -76,7 +81,7 @@ var MadlibBox = React.createClass({
     // Replace words in array with a MadlibComponent n number of times
     for(var i = 0; i < numBlanks; i++) {
       var chunkNum = Math.floor(Math.random() * (madlibTextArray.length + 1));
-      madlibTextArray[chunkNum] = <MadlibComponent />;
+      madlibTextArray[chunkNum] = <MadlibBlank />;
     }
 
     // Just to be nice, split the master array into array of strings and
@@ -102,12 +107,10 @@ var MadlibBox = React.createClass({
       preparedMadlib = this.prepareMadlib();
     }
     return (
-      <div className="madlibBox">
-        <h1>Madlib</h1>
-        <h3>Get started with the Madlib below or submit your own</h3>
+      <div className="madlibBox" id="madlib-box-container">
+        <h1>Madlib Maker</h1>
+        <h3>Get started with the Madlib below or submit your own!</h3>
         <Madlib data={preparedMadlib} />
-        <h2>Submit your madlib!</h2>
-        <p><strong>Note:</strong> The number of blanks must be greater than the number of words</p>
         <MadlibForm onMadlibSubmit={this.handleMadlibSubmit}/>
       </div>
     );
