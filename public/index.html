@@ -27,7 +27,7 @@
       var MadlibComponent = React.createClass({
         render: function() {
           return (
-              <input type="text" placeholder="input" />
+              <input type="text" />
           );
         }
       });
@@ -54,9 +54,9 @@
         render: function() {
           return (
             <form className="commentForm" onSubmit={this.handleSubmit}>
-              <input type="textarea" ref="madlibText" />
-              <input type="number" placeholder="Number of blanks" ref="numBlanks" />
-              <input type="submit" value="Post" />
+              <input type="textarea" ref="madlibText" /><br />
+              <input type="number" min="1" placeholder="Number of blanks" ref="numBlanks" /><br />
+              <input type="submit" value="Submit" />
             </form>
           );
         }
@@ -121,6 +121,7 @@
               <h3>Get started with the Madlib below or submit your own</h3>
               <Madlib data={preparedMadlib} />
               <h2>Submit your madlib!</h2>
+              <p><strong>Note:</strong> The number of blanks must be greater than the number of words</p>
               <MadlibForm onMadlibSubmit={this.handleMadlibSubmit}/>
             </div>
           );
