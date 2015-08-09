@@ -68,11 +68,24 @@
       });
 
       var MadlibForm = React.createClass({
+        handleSubmit: function(e) {
+          e.preventDefault();
+          var madlibText = React.findDOMNode(this.refs.madlibText).value.trim();
+          var numBlanks = React.findDOMNode(this.refs.numBlanks).value;
+          if(!madlibText || !numBlanks) {
+            return;
+          }
+          this.props.onMadlibSubmit({madlibText: madlibText, numBlanks: numBlanks})
+          // Clear the form
+          React.findDOMNode(this.refs.madlibText).value = '';
+          React.findDOMNode(this.refs.numBlanks).value = '';
+        },
+
         render: function() {
           return (
             <form className="commentForm" onSubmit={this.handleSubmit}>
               <input type="textarea" ref="madlibText" />
-              <input type="number" placeholder="Number of inputs" ref="inputsNum" />
+              <input type="number" placeholder="Number of blanks" ref="numBlanks" />
               <input type="submit" value="Post" />
             </form>
           );
@@ -81,6 +94,10 @@
 
       // Parent component for madlib - the 'holder', basically
       var MadlibBox = React.createClass({
+        handleMadlibSubmit: function (madlibText, numBlanks) {
+          console.log('trying to handle submit');
+          this.setState({data: madlibText});
+        },
         getInitialState: function() {
           return {data: []};
         },
@@ -91,9 +108,10 @@
           return (
             <div className="madlibBox">
               <h1>Madlib</h1>
+              <h3>Get started with the Madlib below or submit your own</h3>
               <Madlib data={this.state.data}/>
               <h2>Submit your madlib!</h2>
-              <MadlibForm />
+              <MadlibForm onMadlibSubmit={this.handleMadlibSubmit}/>
             </div>
           );
         }
