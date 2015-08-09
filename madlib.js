@@ -30,7 +30,6 @@ var MadlibForm = React.createClass({
     }
     if(madlibText.toString().split(" ").length <= numBlanks) {
       return;
-      // TODO: figure out how to return error message to screen
     }
 
     this.props.onMadlibSubmit({text: madlibText, numBlanks: numBlanks})
